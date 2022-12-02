@@ -674,7 +674,7 @@ class DefectDojoAPIv2(object):
         severity_gt=None, severity_contains=None, title_contains=None, url_contains=None, date_lt=None,
         date_gt=None, date=None, product_id_in=None, engagement_id_in=None, test_id_in=None, build=None, limit=20, offset=0,
         related_fields=False,
-        is_mitigated=None, tags=None):
+        is_mitigated=None, tags=None, found_by=None):
         """Returns filtered list of findings.
 
         :param active: Finding is active: (true or false)
@@ -698,6 +698,7 @@ class DefectDojoAPIv2(object):
         :param offset: The initial index from which to return the results
         :param is_mitigated: Mitigated finding (true or false).
         :param tags: Comma separated list of exact tags.
+        :param found_by: Test type tool ID
 
         """
 
@@ -766,6 +767,9 @@ class DefectDojoAPIv2(object):
 
         if tags:
             params['tags'] = tags
+
+        if found_by:
+            params['found_by'] = found_by
 
         return self._request('GET', 'findings/', params)
 
